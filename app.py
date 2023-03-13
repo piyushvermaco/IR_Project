@@ -1,49 +1,19 @@
-import os
-import google.auth
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
-from google.oauth2.credentials import Credentials
+# Import the necessary library
+from youtube_transcript_api import YouTubeTranscriptApi
 
-# Set up YouTube API credentials
-credentials, project = google.auth.default(
-    scopes=["https://www.googleapis.com/auth/youtube.force-ssl"]
-)
-if not credentials:
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "path/to/credentials.json"
-    credentials, project = google.auth.default(
-        scopes=["https://www.googleapis.com/auth/youtube.force-ssl"]
-    )
+# Set the YouTube video URL
+video_url = "https://www.youtube.com/watch?v=0lSTXtwPuOU&list=PLSQl0a2vh4HBxoP1tZaejDjVn2Ysf_WDj"
 
-# Define function to retrieve transcript of a YouTube video
-def get_video_transcript(video_id):
-    youtube = build("youtube", "v3", credentials=credentials)
+# Extract the video ID from the URL
+video_id = video_url.split("=")[1]
 
-    try:
-        # Retrieve the list of available captions for the video
-        captions = youtube.captions().list(part="snippet", videoId=video_id).execute()
+# Get the transcript using the video ID
+transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
 
-        # Look for captions that are marked as "auto-generated"
-        auto_captions = [
-            c for c in captions["items"] if c["snippet"]["isAutoSynced"]
-        ]
-        if not auto_captions:
-            raise Exception("No auto-generated captions found for this video.")
+# Convert the list of transcript dictionaries to a string
+transcript_str = ""
+for text in transcript_list:
+    transcript_str += text['text'] + " "
 
-        # Retrieve the transcript for the first auto-generated caption track
-        caption = auto_captions[0]
-        transcript = youtube.captions().download(id=caption["id"]).execute()
-
-        # Convert the transcript to plain text format
-        lines = transcript.split("\n")
-        text = ""
-        for line in lines:
-            if line.strip() == "":
-                continue
-            line = line.replace("<[^>]*>", "")
-            text += line.strip() + " "
-
-        return text
-
-    except HttpError as e:
-        print(f"An error occurred: {e}")
-        return None
+# Print the transcript
+print(transcript_str)
