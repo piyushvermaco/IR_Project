@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      name="viewport"
+    />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Favicon and title -->
+    <link rel="icon" href="{{ url_for('static', filename='logo1.png') }}" />
+    <title>IR Project</title>
+
+    <script
+      src="https://kit.fontawesome.com/b9b97931ac.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Halfmoon CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="with-custom-webkit-scrollbars with-custom-css-scrollbars"
+    data-dm-shortcut-enabled="true"
+    data-set-preferred-mode-onload="true"
+  >
+    <div class="page-wrapper with-navbar with-navbar-fixed-bottom">
+      <div class="sticky-alerts"></div>
+
+      <!-- Navbar start -->
+      <nav class="navbar h-100 bg-light-lm">
+        <div class="container-lg">
+          <a href="{{ url_for('views.base') }}">
+            <img src="{{ url_for('static', filename='logo1.png') }}" height="60" alt="YT Video Lecture Notes Generator">
+          </a>
+          <span class="navbar-text text-monospace">
+            <span class="badge badge-danger text-dark-dm text-white-lm">
+              v1.0</span
+            >
+          </span>
+        </div>
+      </nav>
+      <!-- Navbar end -->
+
+      <!-- Content wrapper start -->
+      <div class="content-wrapper mt-20">
+        <div class="container px-120 h-50"></div>
+        <div class="container">
+          <div class="container">
+            <div class="content">
+              <h2 class="content-title">
+                Genrate Notes and Q&A of your Favourite Youtube video lectures
+                using AI
+              </h2>
+              <form method="POST" action="{{ url_for('views.base') }}">
+
+                <div class="input-group">
+                  <input
+                    type="text"
+                    autofocus="autofocus"
+                    class="form-control"
+                    placeholder="youtube.com/"
+                    name="search_string"
+                  />
+                  <div class="input-group-append">
+                    <!-- <button type="submit" class="btn btn-primary">Analyze</button> -->
+
+                    <button
+                      class="btn btn-primary ml-5 text-dark-dm shadow-none"
+                    >
+                      Magic
+                    </button>
+                  </div>
+                </div>
+                <div class="container px-120 h-50"></div>
+                <div id="emailHelp" class="form-text content mx-0 my-5">
+                  You can enter a video lecture link 🔗 from YouTube.
+                  <br />
+                  We will give you notes📝 and Q&A for that YouTube Video
+                  Lecture.
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Content wrapper end -->
+
+      <!-- Navbar fixed bottom start -->
+      <nav class="navbar navbar-fixed-bottom bg-light-lm">
+        <div class="footer-content mx-auto">
+          Made by Group 50 For Information Retrieval Project 😎
+        </div>
+      </nav>
+      <!-- Navbar fixed bottom end -->
+    </div>
+    <!-- Page wrapper end -->
+  </body>
+</html>
